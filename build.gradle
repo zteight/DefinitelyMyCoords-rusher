@@ -25,6 +25,18 @@ repositories {
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
 
+	exclusiveContent {
+		forRepository {
+			maven {
+				name = "Modrinth"
+				url = "https://api.modrinth.com/maven"
+			}
+		}
+		filter {
+			includeGroup "maven.modrinth"
+		}
+	}
+
 	maven {
 		name = "rusherhack"
 		//releases repository will have the latest api version for last stable rusherhack release
@@ -50,8 +62,11 @@ dependencies {
 		parchment("org.parchmentmc.data:parchment-${project.parchment_version}@zip")
 	}
 
+	// Depend on DefinitelyMyCoords
+	modImplementation "maven.modrinth:definitelymycoords:1.3.1"
+
 	//rusherhack api
-	rusherhackApi "org.rusherhack:rusherhack-api:$minecraft_version-SNAPSHOT"
+	rusherhackApi "org.rusherhack:rusherhack-api:1.20.4-SNAPSHOT"
 }
 
 tasks.register('updateAccessWidener', Copy) {
